@@ -4,7 +4,9 @@ import jwt from 'jsonwebtoken';
 import User from '../models/User.js';
 
 export const getCurrentUser = async (req, res) => {
-    // request data: email, password
+    /*
+    * request data: email, password
+    */
     try {
         const user = await User.findById(req.userId);
         if (!user) {
@@ -24,7 +26,9 @@ export const getCurrentUser = async (req, res) => {
 };
 
 export const register = async (req, res) => {
-    // request data: username, email, password, avatarLink?
+    /*
+    * request data: username, email, password, avatarLink?
+    */
     try {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -62,7 +66,9 @@ export const register = async (req, res) => {
 };
 
 export const login = async (req, res) => {
-    // request data: email, password
+    /*
+    * request data: email, password
+    */
     try {
         const user = await User.findOne({ email: req.body.email });
         if (!user) {
