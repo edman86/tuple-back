@@ -3,8 +3,7 @@ import express from 'express';
 import cors from 'cors';
 import mongoose from 'mongoose';
 import { router as usersRouter } from './routes/usersRouter.js';
-
-// const announcementsRouter = require('./routes/announcements');
+import { router as announcementsRouter } from './routes/announcementsRouter.js';
  
 const app = express();
 const port = process.env.PORT || 5000;
@@ -22,7 +21,7 @@ app.get('/', (req, res) => {
 });
 
 app.use('/users', usersRouter);
-// app.use('/announcements', announcementsRouter);
+app.use('/announcements', announcementsRouter);
 
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
