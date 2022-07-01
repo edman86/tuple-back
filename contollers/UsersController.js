@@ -1,12 +1,9 @@
-import { validationResult } from 'express-validator';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
+import { validationResult } from 'express-validator';
 import User from '../models/User.js';
 
-export const getCurrentUser = async (req, res) => {
-    /*
-    * request data: email, password
-    */
+export const getCurrent = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
         if (!user) {
