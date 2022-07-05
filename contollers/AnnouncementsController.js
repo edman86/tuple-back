@@ -2,7 +2,15 @@ import Announcement from "../models/Announcement.js";
 
 export const getAll = async (req, res) => {
     try {
-        const posts = await Announcement.find().populate("user").exec();
+        const { category } = req.query;
+        let posts;
+        
+        if (category) {
+            posts = await Announcement.find({category}).populate("user").exec();
+        } else {
+            posts = await Announcement.find().populate("user").exec();
+        }
+        
         res.json(posts);
     } catch (err) {
         res.status(500).json({
@@ -39,7 +47,7 @@ export const getOne = async (req, res) => {
                 }
                 res.json(doc);
             }
-        ).populate('user');
+        ).populate("user");
 
     } catch (err) {
         res.status(500).json({
@@ -55,6 +63,9 @@ export const create = async (req, res) => {
             description: req.body.description,
             imageUrl: req.body.imageUrl,
             user: req.userId,
+            phoneNumber: req.body.phoneNumber,
+            adress: req.body.adress,
+            category: req.body.category
         });
 
         const announcement = await doc.save();
@@ -79,6 +90,9 @@ export const update = async (req, res) => {
                 description: req.body.description,
                 imageUrl: req.body.imageUrl,
                 user: req.userId,
+                phoneNumber: req.body.phoneNumber,
+                adress: req.body.adress,
+                category: req.body.category
             }
         );
 
@@ -97,10 +111,7 @@ export const remove = async (req, res) => {
     try {
         const postId = req.params.id;
 
-        Announcement.findOneAndDelete(
-            {
-                _id: postId,
-            },
+        Announcement.findOneAndDelete({_id: postId}, 
             (err, doc) => {
                 if (err) {
                     console.log(err);
@@ -117,6 +128,7 @@ export const remove = async (req, res) => {
 
                 res.json({
                     success: true,
+                    message: 'Announcement successfully deleted'
                 });
             }
         );

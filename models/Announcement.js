@@ -15,11 +15,20 @@ const AnnouncementSchema = new mongoose.Schema({
         required: true,
         unique: true
     },
+    phoneNumber: {
+        type: String,
+        required: true,
+    },
     viewsCount: {
         type: Number,
         default: 0
     },
-    imageUrl: String
+    adress: String,
+    imageUrl: String,
+    category: {
+        type: String,
+        required: true
+    },
 }, {timestamps: true});
 
 export default mongoose.model('Announcement', AnnouncementSchema);
