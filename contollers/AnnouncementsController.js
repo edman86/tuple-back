@@ -4,13 +4,13 @@ export const getAll = async (req, res) => {
     try {
         const { category } = req.query;
         let posts;
-        
+
         if (category) {
-            posts = await Announcement.find({category}).populate("user").exec();
+            posts = await Announcement.find({ category }).populate("user").exec();
         } else {
             posts = await Announcement.find().populate("user").exec();
         }
-        
+
         res.json(posts);
     } catch (err) {
         res.status(500).json({
@@ -111,7 +111,7 @@ export const remove = async (req, res) => {
     try {
         const postId = req.params.id;
 
-        Announcement.findOneAndDelete({_id: postId}, 
+        Announcement.findOneAndDelete({ _id: postId },
             (err, doc) => {
                 if (err) {
                     console.log(err);
